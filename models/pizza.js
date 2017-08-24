@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const mySchema = new Schema({
+const pizzaSchema = new Schema({
     brand: {
         type: String,
         required: true,
@@ -21,6 +21,4 @@ const mySchema = new Schema({
     }
 })
 
-const pizzas = mongoose.model('pizza', mySchema);
-
-module.exports = pizzas;
+module.exports = mongoose.model('Pizza', pizzaSchema);
