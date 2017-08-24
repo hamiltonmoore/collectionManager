@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const pizzaSchema = new Schema({
+const mySchema = new Schema({
     brand: {
         type: String,
         required: true,
@@ -11,7 +11,7 @@ const pizzaSchema = new Schema({
         meats: Schema.Types.Mixed,
         veggies: Schema.Types.Mixed,
         cheese: {
-            type: Boolean,
+            type: String,
             required: true,
         },
         sauce: {
@@ -21,6 +21,6 @@ const pizzaSchema = new Schema({
     }
 })
 
-const pizzas = mongoose.model('pizza', pizzaSchema);
+const pizzas = mongoose.model('pizza', mySchema);
 
 module.exports = pizzas;

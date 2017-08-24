@@ -4,6 +4,7 @@ const bluebird = require("bluebird");
 const bodyparser = require("body-parser");
 const logger = require("morgan");
 const RareBook = require("./models/mySchema");
+const port = process.env.PORT || 8000;
 
 const app = express();
 mongoose.Promise = bluebird;
@@ -49,8 +50,9 @@ app.get("/nameofpage/:id", function (req, res) {
         }))
         .catch(function (err) {
             res.status(500).send(err);
-        }
+        })
 });
+
 app.put("/nameofpage/:id", function (req, res) { //remember Paul: this .put, .get etc doesn't do squat, it's what follows
     mySchema.findByIdAndUpdate(req.params.id, req.body)
         .then(function (updatedPizza) {
