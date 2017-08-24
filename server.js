@@ -51,3 +51,26 @@ app.get("/nameofpage/:id", function (req, res) {
             res.status(500).send(err);
         }
 });
+app.put("/nameofpage/:id", function (req, res) { //remember Paul: this .put, .get etc doesn't do squat, it's what follows
+    mySchema.findByIdAndUpdate(req.params.id, req.body)
+        .then(function (updatedPizza) {
+            if (!updatedPizza) {
+                return res.send({ msg: "could not update pizza" });
+            }
+            res.send(updatedPizza);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        });
+});
+app.delete("/nameofpage/:id", function (req, res) {
+    mySchema.findByIdAndRemove(req.params.id)
+        .then(function (message) {
+            res.send(message);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        });
+});
+
+app.listen(8000, () => console.log("Server running on port 8000!"));
