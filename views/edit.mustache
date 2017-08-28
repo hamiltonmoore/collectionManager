@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+    <a href="/home">Home</a>
+    <div class="pizzaList">
+        {{#pizzaArray}}
+            <p>Title:{{title}} Brand: {{brand}} cruststyle: {{cruststyle}} </p>
+            <p>Toppings: {{toppings.meats}}, {{toppings.veggies}}, {{toppings.cheese}}, {{toppings.sauce}}</p>
+        {{/pizzaArray}}
+        <form action="/home/{{_id}}" method="POST">
+            <input type="text" name="title" value="{{title}}">
+            <input type="text" name="brand" value="{{brand}}">
+            <input type="text" name="cruststyle" value="{{cruststyle}}">
+            <input type="text" name="meat" value="{{toppings.meat}}">
+            <input type="text" name="meat" value="{{toppings.veggies}}">
+            <input type="text" name="meat" value="{{toppings.cheese}}">
+            <input type="text" name="meat" value="{{toppings.sauce}}">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    </div>
+</body>
+
+</html>

@@ -5,7 +5,6 @@ const pizzaSchema = new Schema({
     title: String,
     brand: {
         type: String,
-        required: true,
     },
     crustStyle: Schema.Types.Mixed,
     toppings: {

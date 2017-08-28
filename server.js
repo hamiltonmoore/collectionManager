@@ -19,25 +19,27 @@ app.engine("mustache", mustacheExpress());
 app.set("views", "./views");
 app.set("view engine", "mustache");
 
-app.get("/", function (req, res) {
-    res.render("home");
-});
+// var pizzaArray = []; //is saving them in an array an extra step since we're using the db?
+
+// app.get("/", function (req, res) {
+//     let pizzaArray = [];
+//     // populate from Db into pizzaArray
+//     res.render("home", { pizzaArray: pizzaArray });
+// });
 //variables:
-let pizzaArray = [];
 
 app.post("/home", function (req, res) {
-    let newPizza = new Pizza(req.body);
-    console.log(newPizza);
+    let newPizza = new Pizza(req.body); //is this a method?? //what is an instance
+    console.log("this is the array: ", newPizza);
     newPizza
-        .save()  //not sure what .save does
+        .save()
         .then(function (savedPizza) { //.then returns a promise(something executed after something is finished)
-            res.send(savedPizza);  //can send data, just can't merge data and templetes like render can
+            pizzaArray.push(newPizza);
+            return res.redirect("/");  //can send data, just can't merge data and templetes like render can
         })
         .catch(function (err) {    //.catch returns errors 
-            res.status(500).send(err);
+            return res.status(500).send(err);
         })
-    pizzaArray.push(newPizza);
-    console.log("this is the array: ", pizzaArray);
 })
 
 //search for pizzas 
@@ -47,14 +49,17 @@ app.get("/", function (req, res) {
             if (!foundPizza) {
                 return res.send({ msg: "No Pizzas Found" })
             }
+            console.log(foundPizza[0].brand); // be specific about what you log to reduce clutter in the console.
+            return res.render("home", { pizzaArray: foundPizza });
         })
         .catch(function (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         })
-    res.render("home", foundPizza);
 })
+
 //I think this is a search for indivisual pizzas?/or items? 
 app.get("/home/:id", function (req, res) {
+    Pizza.update
     Pizza.findById(req.params.id
         .then(function (foundPizza) {
             if (!foundPizza) {
@@ -73,7 +78,7 @@ app.put("/home/:id", function (req, res) { //remember Paul: this .put, .get etc 
             if (!updatedPizza) {
                 return res.send({ msg: "could not update pizza" });
             }
-            res.send(updatedPizza);
+            res.redirect("/");
         })
         .catch(function (err) {
             res.status(500).send(err);
@@ -81,8 +86,8 @@ app.put("/home/:id", function (req, res) { //remember Paul: this .put, .get etc 
 });
 app.delete("/home/:id", function (req, res) {
     Pizza.findByIdAndRemove(req.params.id)
-        .then(function (message) {
-            res.send(message);
+        .then(function () {
+            res.redirect("/");
         })
         .catch(function (err) {
             res.status(500).send(err);

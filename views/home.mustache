@@ -12,15 +12,22 @@
     <div class="container">
         <h1>this is my collection manager</h1>
         <form action="/home" method="POST">
-            <input type="text">
-            <input type="text">
+            <input type="text" name="title" placeholder="title">
+            <input type="text" name="brand" placeholder="brand">
+            <input type="text" name="cruststyle" placeholder="cruststyle">
+            <input type="text" name="meat" placeholder="meat">
+            <input type="text" name="meat" placeholder="veggies">
+            <input type="text" name="meat" placeholder="cheese">
+            <input type="text" name="meat" placeholder="sauce">
             <button type="submit">Submit</button>
         </form>
-    <div class="pizzaList">
         <h1>My list of Pizzas</h1>
-        {{pizzaArray}}
+    <div class="pizzaList">
         {{#pizzaArray}}
+            <p>Title:{{title}} Brand: {{brand}} cruststyle: {{cruststyle}} </p>
+            <p>Toppings: {{toppings.meats}}, {{toppings.veggies}}, {{toppings.cheese}}, {{toppings.sauce}}</p>
         {{/pizzaArray}}
+        
     </div>
     </div>
 </body>
