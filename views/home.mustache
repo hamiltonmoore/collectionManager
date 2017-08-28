@@ -16,17 +16,18 @@
             <input type="text" name="brand" placeholder="brand">
             <input type="text" name="cruststyle" placeholder="cruststyle">
             <input type="text" name="meat" placeholder="meat">
-            <input type="text" name="meat" placeholder="veggies">
-            <input type="text" name="meat" placeholder="cheese">
-            <input type="text" name="meat" placeholder="sauce">
+            <input type="text" name="veggies" placeholder="veggies">
+            <input type="text" name="cheese" placeholder="cheese">
+            <input type="text" name="sauce" placeholder="sauce">
             <button type="submit">Submit</button>
         </form>
         <h1>My list of Pizzas</h1>
     <div class="pizzaList">
-        {{#pizzaArray}}
+        {{#Pizza}}
+            <a href="/edit/{{_id}}">edit</a>
             <p>Title:{{title}} Brand: {{brand}} cruststyle: {{cruststyle}} </p>
             <p>Toppings: {{toppings.meats}}, {{toppings.veggies}}, {{toppings.cheese}}, {{toppings.sauce}}</p>
-        {{/pizzaArray}}
+        {{/Pizza}}
         
     </div>
     </div>

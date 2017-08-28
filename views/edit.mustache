@@ -10,13 +10,15 @@
 
 <body>
     <div class="container">
-    <a href="/home">Home</a>
+    <a href="/">Home</a>
     <div class="pizzaList">
-        {{#pizzaArray}}
+        {{#Pizza}}
             <p>Title:{{title}} Brand: {{brand}} cruststyle: {{cruststyle}} </p>
             <p>Toppings: {{toppings.meats}}, {{toppings.veggies}}, {{toppings.cheese}}, {{toppings.sauce}}</p>
-        {{/pizzaArray}}
-        <form action="/home/{{_id}}" method="POST">
+            <form action="/delete/{{_id}}" method="POST">
+            <button type="submit">Delete</button>
+            </form>
+        <form action="/edit/{{_id}}" method="POST">
             <input type="text" name="title" value="{{title}}">
             <input type="text" name="brand" value="{{brand}}">
             <input type="text" name="cruststyle" value="{{cruststyle}}">
@@ -24,8 +26,9 @@
             <input type="text" name="meat" value="{{toppings.veggies}}">
             <input type="text" name="meat" value="{{toppings.cheese}}">
             <input type="text" name="meat" value="{{toppings.sauce}}">
-            <button type="submit">Submit</button>
+            <button type="submit">Update</button>
         </form>
+        {{/Pizza}}
     </div>
     </div>
 </body>

@@ -3,17 +3,12 @@ const Schema = mongoose.Schema;
 
 const pizzaSchema = new Schema({
     title: String,
-    brand: {
-        type: String,
-    },
-    crustStyle: Schema.Types.Mixed,
+    brand: String,
+    crustStyle: String,
     toppings: {
         meats: Schema.Types.Mixed,
         veggies: Schema.Types.Mixed,
-        cheese: {
-            type: String,
-            required: true,
-        },
+        cheese: String,
         sauce: {
             type: String,
             enum: ["red", "white", "pesto"],

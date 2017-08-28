@@ -34,7 +34,6 @@ app.post("/home", function (req, res) {
     newPizza
         .save()
         .then(function (savedPizza) { //.then returns a promise(something executed after something is finished)
-            pizzaArray.push(newPizza);
             return res.redirect("/");  //can send data, just can't merge data and templetes like render can
         })
         .catch(function (err) {    //.catch returns errors 
@@ -50,7 +49,7 @@ app.get("/", function (req, res) {
                 return res.send({ msg: "No Pizzas Found" })
             }
             console.log(foundPizza[0].brand); // be specific about what you log to reduce clutter in the console.
-            return res.render("home", { pizzaArray: foundPizza });
+            return res.render("home", { Pizza: foundPizza });
         })
         .catch(function (err) {
             return res.status(500).send(err);
@@ -58,21 +57,21 @@ app.get("/", function (req, res) {
 })
 
 //I think this is a search for indivisual pizzas?/or items? 
-app.get("/home/:id", function (req, res) {
-    Pizza.update
-    Pizza.findById(req.params.id
+app.get("/edit/:id", function (req, res) {
+    Pizza.findById(req.params.id)
         .then(function (foundPizza) {
             if (!foundPizza) {
                 return res.send({ msg: "No Pizza Found" })  //note the absence of plurality 
             }
-            res.send(foundPizza)
-        }))
+            console.log("foundPizza = ", foundPizza);
+            res.render("edit", { Pizza: foundPizza })
+        })
         .catch(function (err) {
             res.status(500).send(err);
         })
 });
 
-app.put("/home/:id", function (req, res) { //remember Paul: this .put, .get etc doesn't do squat, it's what follows
+app.post("/edit/:id", function (req, res) {  //this is the update request 
     Pizza.findByIdAndUpdate(req.params.id, req.body)
         .then(function (updatedPizza) {
             if (!updatedPizza) {
@@ -84,7 +83,7 @@ app.put("/home/:id", function (req, res) { //remember Paul: this .put, .get etc 
             res.status(500).send(err);
         });
 });
-app.delete("/home/:id", function (req, res) {
+app.post("/delete/:id", function (req, res) {
     Pizza.findByIdAndRemove(req.params.id)
         .then(function () {
             res.redirect("/");
