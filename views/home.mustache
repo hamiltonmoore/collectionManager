@@ -14,18 +14,18 @@
         <form action="/home" method="POST">
             <input type="text" name="title" placeholder="title">
             <input type="text" name="brand" placeholder="brand">
-            <input type="text" name="cruststyle" placeholder="cruststyle">
-            <input type="text" name="meat" placeholder="meat">
-            <input type="text" name="veggies" placeholder="veggies">
-            <input type="text" name="cheese" placeholder="cheese">
-            <input type="text" name="sauce" placeholder="sauce">
+            <input type="text" name="crustStyle" placeholder="cruststyle">
+            <input type="text" name="toppings.meats" placeholder="meat">
+            <input type="text" name="toppings.veggies" placeholder="veggies">
+            <input type="text" name="toppings.cheese" placeholder="cheese">
+            <input type="text" name="toppings.sauce" placeholder="sauce">
             <button type="submit">Submit</button>
         </form>
         <h1>My list of Pizzas</h1>
     <div class="pizzaList">
         {{#Pizza}}
             <a href="/edit/{{_id}}">edit</a>
-            <p>Title:{{title}} Brand: {{brand}} cruststyle: {{cruststyle}} </p>
+            <p>Title:{{title}} Brand: {{brand}} cruststyle: {{crustStyle}} </p>
             <p>Toppings: {{toppings.meats}}, {{toppings.veggies}}, {{toppings.cheese}}, {{toppings.sauce}}</p>
         {{/Pizza}}
         
