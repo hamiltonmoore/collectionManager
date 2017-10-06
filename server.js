@@ -6,7 +6,7 @@ const bodyparser = require("body-parser");
 const mustacheExpress = require("mustache-express");
 const logger = require("morgan");
 const Pizza = require("./models/pizza");
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8100;
 
 const app = express();
 mongoose.Promise = bluebird;
@@ -19,24 +19,15 @@ app.engine("mustache", mustacheExpress());
 app.set("views", "./views");
 app.set("view engine", "mustache");
 
-// var pizzaArray = []; //is saving them in an array an extra step since we're using the db?
-
-// app.get("/", function (req, res) {
-//     let pizzaArray = [];
-//     // populate from Db into pizzaArray
-//     res.render("home", { pizzaArray: pizzaArray });
-// });
-//variables:
-
+//this creates a new item to be saved into database
 app.post("/home", function (req, res) {
-    let newPizza = new Pizza(req.body); //is this a method?? //what is an instance
-    console.log("this is the array: ", newPizza);
+    let newPizza = new Pizza(req.body);
     newPizza
         .save()
         .then(function (savedPizza) { //.then returns a promise(something executed after something is finished)
             return res.redirect("/");  //can send data, just can't merge data and templetes like render can
         })
-        .catch(function (err) {    //.catch returns errors 
+        .catch(function (err) {
             return res.status(500).send(err);
         })
 })
@@ -48,7 +39,6 @@ app.get("/", function (req, res) {
             if (!foundPizza) {
                 return res.send({ msg: "No Pizzas Found" })
             }
-            console.log(foundPizza[0].brand); // be specific about what you log to reduce clutter in the console.
             return res.render("home", { Pizza: foundPizza });
         })
         .catch(function (err) {
@@ -63,7 +53,6 @@ app.get("/edit/:id", function (req, res) {
             if (!foundPizza) {
                 return res.send({ msg: "No Pizza Found" })  //note the absence of plurality 
             }
-            console.log("foundPizza = ", foundPizza);
             res.render("edit", { Pizza: foundPizza })
         })
         .catch(function (err) {
@@ -93,4 +82,4 @@ app.post("/delete/:id", function (req, res) {
         });
 });
 
-app.listen(8000, () => console.log("Server running on port 8000!"));
+app.listen(8100, () => console.log("Server running on port 8100!"));
